@@ -12,6 +12,6 @@ import java.util.UUID;
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, UUID> {
     List<Application> findByCandidate(User candidate);
-    List<Application> findByJob(Job job);
     boolean existsByCandidateAndJob(User candidate, Job job);
+
 }

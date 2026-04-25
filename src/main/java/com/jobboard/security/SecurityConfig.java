@@ -56,11 +56,11 @@ public class SecurityConfig {
 
 
                         // ── Candidate-only endpoints ──────────────────────────────
-                        .requestMatchers(HttpMethod.POST,   "/jobs/{id}/apply")
+                        .requestMatchers(HttpMethod.POST,   "/api/jobs/{id}/apply")
                         .hasRole("CANDIDATE")
-                        .requestMatchers(HttpMethod.GET,    "/applications/mine")
+                        .requestMatchers(HttpMethod.GET,    "/api/applications/mine")
                         .hasRole("CANDIDATE")
-                        .requestMatchers(HttpMethod.DELETE, "/applications/{id}")
+                        .requestMatchers(HttpMethod.DELETE, "/api/applications/{id}")
                         .hasRole("CANDIDATE")
 
                         // ── Any authenticated user ────────────────────────────────

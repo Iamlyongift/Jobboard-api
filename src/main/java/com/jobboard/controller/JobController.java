@@ -20,9 +20,12 @@ public class JobController {
     private final JobService jobService;
 
     @GetMapping("/jobs")
-  public ResponseEntity<List<JobResponse>> getAllJobs() {
+    public ResponseEntity<List<JobResponse>> getAllJobs(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) Double minSalary) {
         return ResponseEntity.ok(
-                jobService.getAllJobs()
+                jobService.getAllJobs(title, location, minSalary)
                         .stream()
                         .map(JobResponse::new)
                         .toList()

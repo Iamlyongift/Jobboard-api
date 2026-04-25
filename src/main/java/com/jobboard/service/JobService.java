@@ -3,16 +3,15 @@ package com.jobboard.service;
 import com.jobboard.dto.JobRequest;
 import com.jobboard.entity.Job;
 import com.jobboard.entity.User;
-import com.jobboard.exceptions.EmailAlreadyExistsException;
 import com.jobboard.exceptions.JobNotFoundException;
 import com.jobboard.exceptions.UserNotFoundException;
 import com.jobboard.repository.JobRepository;
 import com.jobboard.repository.UserRepository;
+import com.jobboard.specification.JobSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -33,7 +32,6 @@ public class JobService {
         job.setSalary(request.getSalary());
         job.setEmployer(employer);
         job.setStatus(Job.Status.OPEN);
-
         return jobRepository.save(job);
     }
 
@@ -45,13 +43,11 @@ public class JobService {
         if (!job.getEmployer().getEmail().equals(email)) {
             throw new IllegalArgumentException("Not your job!");
         }
-
         job.setTitle(request.getTitle());
         job.setEmail(request.getEmail());
         job.setDescription(request.getDescription());
         job.setLocation(request.getLocation());
         job.setSalary(request.getSalary());
-
         return jobRepository.save(job);
     }
 
@@ -63,7 +59,6 @@ public class JobService {
             throw new IllegalArgumentException("Not your job!");
         }
         jobRepository.deleteById(id);
-
     }
 
     public Job getJobById(UUID id){
@@ -72,9 +67,15 @@ public class JobService {
         return job;
     }
 
-    public List<Job> getAllJobs(){
-        return jobRepository.findAll();
+    public List<Job> getAllJobs(String title, String location, Double minSalary){
+        Specification<Job> spec = Specification.allOf(
+                JobSpecification.isOpen(),
+                JobSpecification.hasTitle(title),
+                JobSpecification.hasLocation(location),
+                JobSpecification.hasMinSalary(minSalary)
+        );
+        return jobRepository.findAll(spec);
     }
-
 }
 
+//
