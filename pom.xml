@@ -78,6 +78,17 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            groupId: org.testcontainers
+            artifactId: junit-jupiter
+            scope: test
+        </dependency>
+        <dependency>
+            groupId: org.testcontainers
+            artifactId: postgresql
+            scope: test
+        </dependency>
+
         <!-- JWT -->
 
         <dependency>

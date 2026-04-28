@@ -36,8 +36,5 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
         // Option A: redirect with token as query param (for SPAs)
         response.sendRedirect("/oauth2/success?token=" + token);
 
-        // Option B (alternative): return JSON directly
-        // response.setContentType("application/json");
-        // response.getWriter().write("{\"token\": \"" + token + "\"}");
     }
 }

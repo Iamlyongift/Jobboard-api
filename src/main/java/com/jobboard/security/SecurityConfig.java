@@ -43,6 +43,8 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/jobs")
                         .permitAll()
+                        .requestMatchers("/complete-profile").permitAll()
+                        .requestMatchers("/oauth2/success").permitAll()
 
                         // ── Employer-only endpoints ───────────────────────────────
                         .requestMatchers(HttpMethod.POST,   "/api/jobs")

@@ -56,11 +56,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                                Provider provider, String providerId) {
         User user = new User();
         user.setEmail(email);
-        user.setPassword(null);          // OAuth users have no local password
-        user.setRole(null);              // role is UNKNOWN until they tell us
+        user.setPassword(null);
+        user.setRole(null);
         user.setProvider(provider);
         user.setProviderId(providerId);
-        user.setProfileComplete(false);  // flag → triggers redirect
+        user.setProfileComplete(false);
         return userRepository.save(user);
     }
 
@@ -77,8 +77,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private String extractProviderId(String registrationId, Map<String, Object> attrs) {
-        Object id = attrs.get("sub");              // Google uses "sub"
-        if (id == null) id = attrs.get("id");      // GitHub uses "id"
+        Object id = attrs.get("sub");
+        if (id == null) id = attrs.get("id");
         return String.valueOf(id);
     }
 }
